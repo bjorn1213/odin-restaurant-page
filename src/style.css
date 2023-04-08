@@ -1,0 +1,63 @@
+:root {
+  --page-bg-color: #219ebc;
+  --active-tab-color: #219ebc;
+  --inactive-tab-color: #023047;
+  --tab-border-color: #ffb703;
+  --active-tab-border-color: #fb8500;
+}
+
+html,
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#content {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 150px 1fr;
+}
+
+.header {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+}
+
+.header h1 {
+  margin: 0;
+  text-align: center;
+  align-self: center;
+}
+
+.tab-select-container {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.tab {
+  color: white;
+  background-color: var(--inactive-tab-color);
+  padding: 5px 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: none;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab.selected {
+  background-color: var(--active-tab-color);
+  border-left: 10px solid var(--active-tab-border-color);
+  border-right: 10px solid var(--active-tab-border-color);
+  font-weight: bold;
+}
+
+.tab-contents {
+  background-color: var(--page-bg-color);
+}
