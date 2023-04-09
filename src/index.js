@@ -1,6 +1,14 @@
 import "./style.css";
 import generateMenuPage from "./menu";
 
+const toggleActiveTab = (activeTabID) => {
+  const currentTab = document.querySelector(".tab.selected");
+  currentTab.classList.remove("selected");
+
+  const newTab = document.querySelector(`#${activeTabID}`);
+  newTab.classList.add("selected");
+};
+
 const setupMainPage = () => {
   const pageContent = document.createElement("div");
   pageContent.setAttribute("id", "content");
@@ -13,33 +21,36 @@ const setupMainPage = () => {
 
   for (let i = 0; i < 5; i++) {
     const listItem = document.createElement("li");
-    const tab = document.createElement("a");
-    tab.textContent = `tab ${i}`;
-    listItem.addEventListener("click", () => {
-      const x = generateMenuPage();
-      document.getElementById("tab-container").replaceChildren(x);
+    listItem.setAttribute("id", `tab-${i}`);
+    listItem.textContent = `tab ${i}`;
+    listItem.addEventListener("click", (event) => {
+      toggleActiveTab(event.target.id);
+
+      document
+        .getElementById("tab-container")
+        .replaceChildren(generateMenuPage());
     });
+
     listItem.classList.add("tab");
     if (i === 0) {
       listItem.classList.add("selected");
     }
 
-    listItem.appendChild(tab);
     tabSelectors.appendChild(listItem);
   }
 
   const title = document.createElement("h1");
   title.textContent = "Restaurant website";
 
-  const tabContents = document.createElement("div");
-  tabContents.setAttribute("id", "tab-container");
-  tabContents.textContent = "asd";
+  const tabContentContainer = document.createElement("div");
+  tabContentContainer.setAttribute("id", "tab-container");
+  tabContentContainer.appendChild(generateMenuPage());
 
   header.appendChild(title);
   header.appendChild(tabSelectors);
 
   pageContent.appendChild(header);
-  pageContent.appendChild(tabContents);
+  pageContent.appendChild(tabContentContainer);
 
   document.getElementById("content").replaceWith(pageContent);
 };

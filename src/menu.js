@@ -19,7 +19,7 @@ const round = (number, decimals) => {
 
 const getDummyMenu = () => {
   const dummyDescription =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id turpis et quam blandit malesuada. Sed auctor et quam et.";
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed magna sagittis, tincidunt arcu ut, mattis eros. Pellentesque tempus odio mauris, et hendrerit urna tincidunt ac. Morbi eleifend feugiat purus, nec convallis mi luctus ut. Morbi euismod, nisl id sagittis pretium, arcu eros rhoncus ligula, id bibendum nisl ex nec magna. Morbi semper mauris ut arcu tincidunt suscipit. Nullam consectetur posuere ornare. Nulla nec quam a purus tempor auctor id id est. ";
 
   let starters = [];
   for (let i = 0; i < 2; i++) {
@@ -46,6 +46,7 @@ const getDummyMenu = () => {
 
 const generateMenuSection = (subMenu, sectionTitle) => {
   const menuSection = document.createElement("div");
+  menuSection.classList.add("menu-section");
 
   const sectionHeader = document.createElement("h3");
   sectionHeader.textContent = sectionTitle;
@@ -54,17 +55,24 @@ const generateMenuSection = (subMenu, sectionTitle) => {
 
   for (let i = 0; i < subMenu.length; i++) {
     const mealContainer = document.createElement("div");
+    mealContainer.classList.add("meal-container");
+
+    const containerHead = document.createElement("div");
+    containerHead.classList.add("meal-container-head");
+
     const mealTitle = document.createElement("h3");
     mealTitle.textContent = subMenu[i].name;
 
     const mealPrice = document.createElement("div");
     mealPrice.textContent = `€${subMenu[i].price}`;
 
+    containerHead.appendChild(mealTitle);
+    containerHead.appendChild(mealPrice);
+
     const mealDescription = document.createElement("div");
     mealDescription.textContent = subMenu[i].description;
 
-    mealContainer.appendChild(mealTitle);
-    mealContainer.appendChild(mealPrice);
+    mealContainer.appendChild(containerHead);
     mealContainer.appendChild(mealDescription);
     menuSection.appendChild(mealContainer);
   }
