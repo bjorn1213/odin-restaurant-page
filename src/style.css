@@ -58,6 +58,12 @@ body {
   font-weight: bold;
 }
 
-.tab-contents {
+#tab-container {
   background-color: var(--page-bg-color);
+  display: flex;
+  justify-content: center;
+}
+
+.tab-contents {
+  border: 2px solid black;
 }

@@ -1,4 +1,5 @@
 import "./style.css";
+import generateMenuPage from "./menu";
 
 const setupMainPage = () => {
   const pageContent = document.createElement("div");
@@ -14,6 +15,10 @@ const setupMainPage = () => {
     const listItem = document.createElement("li");
     const tab = document.createElement("a");
     tab.textContent = `tab ${i}`;
+    listItem.addEventListener("click", () => {
+      const x = generateMenuPage();
+      document.getElementById("tab-container").replaceChildren(x);
+    });
     listItem.classList.add("tab");
     if (i === 0) {
       listItem.classList.add("selected");
@@ -27,7 +32,7 @@ const setupMainPage = () => {
   title.textContent = "Restaurant website";
 
   const tabContents = document.createElement("div");
-  tabContents.classList.add("tab-contents");
+  tabContents.setAttribute("id", "tab-container");
   tabContents.textContent = "asd";
 
   header.appendChild(title);
