@@ -1,5 +1,6 @@
 import "./style.css";
 import generateMenuPage from "./menu";
+import generateHomePage from "./home";
 
 const toggleActiveTab = (activeTabID) => {
   const currentTab = document.querySelector(".tab.selected");
@@ -7,6 +8,26 @@ const toggleActiveTab = (activeTabID) => {
 
   const newTab = document.querySelector(`#${activeTabID}`);
   newTab.classList.add("selected");
+};
+
+let currentTabIndex = 0;
+
+const addTab = (pageGenerator, tabTitle) => {
+  const tab = document.createElement("li");
+  tab.setAttribute("id", `tab-${currentTabIndex++}`);
+  tab.textContent = tabTitle;
+
+  tab.addEventListener("click", (event) => {
+    toggleActiveTab(event.target.id);
+
+    document.getElementById("tab-container").replaceChildren(pageGenerator());
+  });
+
+  tab.classList.add("tab");
+  if (currentTabIndex === 1) {
+    tab.classList.add("selected");
+  }
+  return tab;
 };
 
 const setupMainPage = () => {
@@ -19,32 +40,15 @@ const setupMainPage = () => {
   const tabSelectors = document.createElement("ul");
   tabSelectors.classList.add("tab-select-container");
 
-  for (let i = 0; i < 5; i++) {
-    const listItem = document.createElement("li");
-    listItem.setAttribute("id", `tab-${i}`);
-    listItem.textContent = `tab ${i}`;
-    listItem.addEventListener("click", (event) => {
-      toggleActiveTab(event.target.id);
-
-      document
-        .getElementById("tab-container")
-        .replaceChildren(generateMenuPage());
-    });
-
-    listItem.classList.add("tab");
-    if (i === 0) {
-      listItem.classList.add("selected");
-    }
-
-    tabSelectors.appendChild(listItem);
-  }
+  tabSelectors.appendChild(addTab(generateHomePage, "Home"));
+  tabSelectors.appendChild(addTab(generateMenuPage, "Menu"));
 
   const title = document.createElement("h1");
   title.textContent = "Restaurant website";
 
   const tabContentContainer = document.createElement("div");
   tabContentContainer.setAttribute("id", "tab-container");
-  tabContentContainer.appendChild(generateMenuPage());
+  tabContentContainer.appendChild(generateHomePage());
 
   header.appendChild(title);
   header.appendChild(tabSelectors);
